@@ -104,7 +104,7 @@ st.image(
 # TITLE
 # -----------------------------------
 
-st.title("✨ Skincare Marketing Content Generator")
+st.title("🫧 Skincare Marketing Content Generator")
 
 st.write(
     "Create professional marketing content for your skincare brand in seconds."
@@ -155,10 +155,10 @@ category = st.selectbox(
 # CAMPAIGN SETTINGS
 # -----------------------------------
 
-st.subheader("🎯 Campaign Settings")
+st.subheader("📋 Campaign Details")
 
 campaign_objective = st.selectbox(
-    "🎯 What is the campaign objective?",
+    " 📋What is the campaign objective?",
     [
         "🆕 Product Launch",
         "🎉 Festive Campaign",
