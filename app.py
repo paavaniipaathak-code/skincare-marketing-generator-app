@@ -28,7 +28,7 @@ st.write(
 # WEBSITE BANNER
 # -----------------------------------
 
-st.image("skincare_banner.png", use_container_width=True)
+st.image("skincare_banner.png.png", use_container_width=True)
 
 
 # -----------------------------------
