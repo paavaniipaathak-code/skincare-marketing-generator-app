@@ -23,67 +23,90 @@ def set_background(image_file):
         encoded = base64.b64encode(file.read()).decode()
 
     st.markdown(
-        f"""
-        <style>
+    f"""
+    <style>
 
-        /* PAGE BACKGROUND */
-        .stApp {{
-            background-color: #EAF6FF;
-            background-image: url("data:image/png;base64,{encoded}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }}
+    /* PAGE BACKGROUND */
+    .stApp {{
+        background-color: #EAF6FF;
+        background-image: url("data:image/png;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
 
-        /* TEXT INPUT BOXES */
-        .stTextInput input {{
-            background-color: white !important;
-            color: black !important;
-            border-radius: 8px !important;
-        }}
+    /* TEXT INPUT BOXES */
+    .stTextInput input {{
+        background-color: white !important;
+        color: black !important;
+        border-radius: 8px !important;
+    }}
 
-        /* TEXT AREA */
-        .stTextArea textarea {{
-            background-color: white !important;
-            color: black !important;
-            border-radius: 8px !important;
-        }}
+    /* TEXT AREA */
+    .stTextArea textarea {{
+        background-color: white !important;
+        color: black !important;
+        border-radius: 8px !important;
+    }}
 
-        /* DROPDOWN BOXES */
-        div[data-baseweb="select"] > div {{
-            background-color: white !important;
-            color: black !important;
-            border-radius: 8px !important;
-        }}
+    /* SELECTBOX - WHITE RECTANGLE */
+    div[data-baseweb="select"] {{
+        background-color: white !important;
+    }}
 
-        div[data-baseweb="select"] span {{
-            color: black !important;
-        }}
+    div[data-baseweb="select"] > div {{
+        background-color: white !important;
+        background: white !important;
+        border: 1px solid #cccccc !important;
+        border-radius: 8px !important;
+        box-shadow: none !important;
+    }}
 
-        div[data-baseweb="select"] svg {{
-            fill: black !important;
-        }}
+    div[data-baseweb="select"] > div > div {{
+        background-color: white !important;
+        background: white !important;
+    }}
 
-        /* DROPDOWN MENU */
-        div[role="listbox"] {{
-            background-color: white !important;
-        }}
+    div[data-baseweb="select"] span {{
+        color: black !important;
+        background-color: transparent !important;
+    }}
 
-        div[role="option"] {{
-            background-color: white !important;
-            color: black !important;
-        }}
+    div[data-baseweb="select"] input {{
+        color: black !important;
+        background-color: white !important;
+    }}
 
-        /* LABELS */
-        label {{
-            color: black !important;
-        }}
+    div[data-baseweb="select"] svg {{
+        fill: black !important;
+        color: black !important;
+    }}
 
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    /* DROPDOWN OPTIONS */
+    div[role="listbox"] {{
+        background-color: white !important;
+        background: white !important;
+    }}
 
+    div[role="option"] {{
+        background-color: white !important;
+        color: black !important;
+    }}
+
+    div[role="option"]:hover {{
+        background-color: #f0f0f0 !important;
+        color: black !important;
+    }}
+
+    /* LABELS */
+    label {{
+        color: black !important;
+    }}
+
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 set_background("skincare_background.png.png")
 
