@@ -14,67 +14,70 @@ def set_background(image_file):
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
 
-    st.markdown(
-        f"""
-        <style>
+   st.markdown(
+    f"""
+    <style>
 
-        /* PAGE BACKGROUND */
-        .stApp {{
-            background-color: #EAF6FF;
-            background-image: url("data:image/png;base64,{encoded}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }}
+    /* PAGE BACKGROUND */
+    .stApp {{
+        background-color: #EAF6FF;
+        background-image: url("data:image/png;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
 
-        /* TEXT INPUT BOXES */
-        .stTextInput input {{
-            background-color: white !important;
-            color: black !important;
-        }}
+    /* TEXT INPUT BOXES */
+    .stTextInput input {{
+        background-color: white !important;
+        color: black !important;
+    }}
 
-        /* TEXT AREA */
-        .stTextArea textarea {{
-            background-color: white !important;
-            color: black !important;
-        }}
+    /* TEXT AREA */
+    .stTextArea textarea {{
+        background-color: white !important;
+        color: black !important;
+    }}
 
-        /* ALL DROPDOWN BOXES */
-        div[data-baseweb="select"] > div {{
-            background-color: white !important;
-            color: black !important;
-        }}
+    /* ALL DROPDOWN RECTANGLES */
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] {{
+        background-color: white !important;
+        border-radius: 6px !important;
+    }}
 
-        /* DROPDOWN TEXT */
-        div[data-baseweb="select"] span {{
-            color: black !important;
-        }}
+    /* INNER DROPDOWN */
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {{
+        background-color: white !important;
+    }}
 
-        /* DROPDOWN ARROW */
-        div[data-baseweb="select"] svg {{
-            fill: black !important;
-        }}
+    /* SELECTED VALUE */
+    div[data-testid="stSelectbox"] div[data-baseweb="select"] span {{
+        color: black !important;
+    }}
 
-        /* DROPDOWN MENU */
-        div[role="listbox"] {{
-            background-color: white !important;
-        }}
+    /* DROPDOWN ARROW */
+    div[data-testid="stSelectbox"] svg {{
+        fill: black !important;
+    }}
 
-        div[role="option"] {{
-            background-color: white !important;
-            color: black !important;
-        }}
+    /* DROPDOWN MENU */
+    div[role="listbox"] {{
+        background-color: white !important;
+    }}
 
-        div[role="option"]:hover {{
-            background-color: #EAF6FF !important;
-        }}
+    div[role="option"] {{
+        background-color: white !important;
+        color: black !important;
+    }}
 
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    div[role="option"]:hover {{
+        background-color: #EAF6FF !important;
+    }}
 
-
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 set_background("skincare_background.png.png")
 
 # -----------------------------------
