@@ -8,6 +8,7 @@ client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 # PAGE BACKGROUND
 # -----------------------------------
 
+
 def set_background(image_file):
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
@@ -22,11 +23,27 @@ def set_background(image_file):
             background-position: center;
             background-attachment: fixed;
         }}
+
+        /* WHITE INPUT BOXES */
+        .stTextInput input {{
+            background-color: white !important;
+            color: black !important;
+        }}
+
+        .stTextArea textarea {{
+            background-color: white !important;
+            color: black !important;
+        }}
+
+        .stSelectbox div[data-baseweb="select"] > div {{
+            background-color: white !important;
+            color: black !important;
+        }}
+
         </style>
         """,
         unsafe_allow_html=True
     )
-
 
 set_background("skincare_background.png.png")
 
