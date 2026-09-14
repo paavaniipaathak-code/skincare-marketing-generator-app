@@ -1,16 +1,32 @@
 import streamlit as st
+import base64
+
 
 # -----------------------------------
 # PAGE BACKGROUND
 # -----------------------------------
 
-st.markdown("""
-<style>
-.stApp {
-    background-color: #FFF8F5;
-}
-</style>
-""", unsafe_allow_html=True)
+def set_background(image_file):
+    with open(image_file, "rb") as file:
+        encoded = base64.b64encode(file.read()).decode()
+
+    st.markdown(
+        f"""
+        <style>
+        .stApp {{
+            background-color: #EAF6FF;
+            background-image: url("data:image/png;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+
+set_background("skincare_background.png.png")
 
 
 # -----------------------------------
