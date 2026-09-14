@@ -18,99 +18,78 @@ st.set_page_config(
 # -----------------------------------
 
 def set_background(image_file):
-
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
 
     st.markdown(
-    f"""
-    <style>
+        f"""
+        <style>
 
-    /* PAGE BACKGROUND */
-    .stApp {{
-        background-color: #EAF6FF;
-        background-image: url("data:image/png;base64,{encoded}");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }}
+        /* PAGE BACKGROUND */
+        .stApp {{
+            background-color: #EAF6FF;
+            background-image: url("data:image/png;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }}
 
-    /* TEXT INPUT BOXES */
-    .stTextInput input {{
-        background-color: white !important;
-        color: black !important;
-        border-radius: 8px !important;
-    }}
+        /* TEXT INPUT BOXES */
+        .stTextInput input {{
+            background-color: white !important;
+            color: black !important;
+        }}
 
-    /* TEXT AREA */
-    .stTextArea textarea {{
-        background-color: white !important;
-        color: black !important;
-        border-radius: 8px !important;
-    }}
+        /* TEXT AREA */
+        .stTextArea textarea {{
+            background-color: white !important;
+            color: black !important;
+        }}
 
-    /* SELECTBOX - WHITE RECTANGLE */
-    div[data-baseweb="select"] {{
-        background-color: white !important;
-    }}
+        /* ==============================
+           FORCE ALL DROPDOWNS WHITE
+           ============================== */
 
-    div[data-baseweb="select"] > div {{
-        background-color: white !important;
-        background: white !important;
-        border: 1px solid #cccccc !important;
-        border-radius: 8px !important;
-        box-shadow: none !important;
-    }}
+        div[data-testid="stSelectbox"] [data-baseweb="select"],
+        div[data-testid="stSelectbox"] [data-baseweb="select"] > div,
+        div[data-testid="stSelectbox"] [data-baseweb="base-input"],
+        div[data-testid="stSelectbox"] [data-baseweb="input"],
+        div[data-testid="stSelectbox"] [role="combobox"] {{
+            background-color: #FFFFFF !important;
+            background: #FFFFFF !important;
+        }}
 
-    div[data-baseweb="select"] > div > div {{
-        background-color: white !important;
-        background: white !important;
-    }}
+        /* Selected value */
+        div[data-testid="stSelectbox"] [data-baseweb="select"] span {{
+            color: #222222 !important;
+        }}
 
-    div[data-baseweb="select"] span {{
-        color: black !important;
-        background-color: transparent !important;
-    }}
+        /* Arrow */
+        div[data-testid="stSelectbox"] [data-baseweb="select"] svg {{
+            fill: #222222 !important;
+        }}
 
-    div[data-baseweb="select"] input {{
-        color: black !important;
-        background-color: white !important;
-    }}
+        /* Dropdown menu */
+        div[role="listbox"] {{
+            background-color: #FFFFFF !important;
+        }}
 
-    div[data-baseweb="select"] svg {{
-        fill: black !important;
-        color: black !important;
-    }}
+        div[role="option"] {{
+            background-color: #FFFFFF !important;
+            color: #222222 !important;
+        }}
 
-    /* DROPDOWN OPTIONS */
-    div[role="listbox"] {{
-        background-color: white !important;
-        background: white !important;
-    }}
+        div[role="option"]:hover {{
+            background-color: #EAF6FF !important;
+        }}
 
-    div[role="option"] {{
-        background-color: white !important;
-        color: black !important;
-    }}
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-    div[role="option"]:hover {{
-        background-color: #f0f0f0 !important;
-        color: black !important;
-    }}
-
-    /* LABELS */
-    label {{
-        color: black !important;
-    }}
-
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 set_background("skincare_background.png.png")
-
-
 # -----------------------------------
 # BANNER
 # -----------------------------------
