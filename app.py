@@ -160,27 +160,90 @@ if st.button("🚀 Generate Content"):
     # CHECK REQUIRED INFORMATION
     # -----------------------------------
 
- if (...):
-        ...
-    else:
+    if (
+        not brand_name
+        or not product_name
+        or not target_audience
+        or not benefits
+        or not category
+        or not contact_person
+        or not contact_email
+    ):
 
-        if content_type == "📝 Text":
-            # your existing email,
-            # LinkedIn,
-            # Instagram,
-            # tagline
-            # code
-
-        elif content_type == "🖼️ Image":
-            # AI image generation
+        st.warning(
+            "Please fill in all the required information before generating content."
+        )
 
     else:
 
         # -----------------------------------
-        # MARKETING EMAIL
+        # IMAGE GENERATION
         # -----------------------------------
 
-        email = f"""
+        if content_type == "🖼️ Image":
+
+            st.subheader("🖼️ AI Generated Marketing Image")
+
+            image_prompt = f"""
+            Create a professional skincare marketing advertisement.
+
+            Brand: {brand_name}
+            Product: {product_name}
+            Category: {category}
+            Target audience: {target_audience}
+            Product benefits: {benefits}
+            Campaign objective: {campaign_objective}
+            Marketing tone: {tone}
+            Call to action: {cta}
+
+            Visual style:
+            Premium skincare advertisement.
+            Soft pastel blue background.
+            Elegant skincare products.
+            Botanical leaves and subtle flowers.
+            Soft natural lighting.
+            Clean and modern composition.
+            Professional product photography.
+            Beautiful social-media-friendly marketing design.
+            """
+
+            with st.spinner("✨ Creating your skincare image..."):
+
+                try:
+
+                    result = client.images.generate(
+                        model="gpt-image-2",
+                        prompt=image_prompt
+                    )
+
+                    image_base64 = result.data[0].b64_json
+
+                    image_bytes = base64.b64decode(image_base64)
+
+                    st.image(
+                        image_bytes,
+                        caption=f"{product_name} — AI Marketing Creative",
+                        use_container_width=True
+                    )
+
+                except Exception as e:
+
+                    st.error(
+                        f"Unable to generate the image. Error: {e}"
+                    )
+
+
+        # -----------------------------------
+        # TEXT GENERATION
+        # -----------------------------------
+
+        else:
+
+            # -----------------------------------
+            # MARKETING EMAIL
+            # -----------------------------------
+
+            email = f"""
 Subject: Discover {product_name} by {brand_name}
 
 Dear Customer,
@@ -220,11 +283,11 @@ Phone: {contact_phone}
 """
 
 
-        # -----------------------------------
-        # LINKEDIN POST
-        # -----------------------------------
+            # -----------------------------------
+            # LINKEDIN POST
+            # -----------------------------------
 
-        linkedin = f"""
+            linkedin = f"""
 ✨ Introducing {product_name} by {brand_name}
 
 At {brand_name}, we believe skincare should be simple, effective
@@ -245,11 +308,11 @@ and an experience designed around the needs of today's consumers.
 """
 
 
-        # -----------------------------------
-        # INSTAGRAM CAPTION
-        # -----------------------------------
+            # -----------------------------------
+            # INSTAGRAM CAPTION
+            # -----------------------------------
 
-        instagram = f"""
+            instagram = f"""
 ✨ Meet {product_name} by {brand_name} ✨
 
 Your skincare routine deserves something special. 🤍
@@ -272,44 +335,44 @@ Ready to make {product_name} part of your everyday routine?
 """
 
 
-        # -----------------------------------
-        # TAGLINE
-        # -----------------------------------
+            # -----------------------------------
+            # TAGLINE
+            # -----------------------------------
 
-        tagline = f"{brand_name} – Where Better Skincare Begins."
-
-
-        # -----------------------------------
-        # DISPLAY RESULTS
-        # -----------------------------------
-
-        st.subheader("📧 Marketing Email")
-
-        st.text_area(
-            "Generated Email",
-            email,
-            height=450
-        )
+            tagline = f"{brand_name} – Where Better Skincare Begins."
 
 
-        st.subheader("💼 LinkedIn Post")
+            # -----------------------------------
+            # DISPLAY RESULTS
+            # -----------------------------------
 
-        st.text_area(
-            "Generated LinkedIn Post",
-            linkedin,
-            height=300
-        )
+            st.subheader("📧 Marketing Email")
 
-
-        st.subheader("📸 Instagram Caption")
-
-        st.text_area(
-            "Generated Instagram Caption",
-            instagram,
-            height=300
-        )
+            st.text_area(
+                "Generated Email",
+                email,
+                height=450
+            )
 
 
-        st.subheader("🏷️ Tagline")
+            st.subheader("💼 LinkedIn Post")
 
-        st.success(tagline)
+            st.text_area(
+                "Generated LinkedIn Post",
+                linkedin,
+                height=300
+            )
+
+
+            st.subheader("📸 Instagram Caption")
+
+            st.text_area(
+                "Generated Instagram Caption",
+                instagram,
+                height=300
+            )
+
+
+            st.subheader("🏷️ Tagline")
+
+            st.success(tagline)
