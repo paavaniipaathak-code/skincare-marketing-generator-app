@@ -8,7 +8,7 @@ client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 # -----------------------------------
 # PAGE BACKGROUND + CUSTOM CSS
 # -----------------------------------
-\def set_background(image_file):
+ def set_background(image_file):
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
 
