@@ -4,96 +4,78 @@ from google import genai
 
 client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
-# -----------------------------------
-# PAGE BACKGROUND
-# -----------------------------------
 
+# -----------------------------------
+# PAGE BACKGROUND + CUSTOM CSS
+# -----------------------------------
 
 def set_background(image_file):
+
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
 
     st.markdown(
-    f"""
-    <style>
+        f"""
+        <style>
 
-    /* PAGE BACKGROUND */
-    .stApp {{
-        background-color: #EAF6FF;
-        background-image: url("data:image/png;base64,{encoded}");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }}
+        /* PAGE BACKGROUND */
+        .stApp {{
+            background-color: #EAF6FF;
+            background-image: url("data:image/png;base64,{encoded}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }}
 
-    /* TEXT INPUT BOXES */
-    .stTextInput input {{
-        background-color: white !important;
-        color: black !important;
-    }}
+        /* TEXT INPUT BOXES */
+        .stTextInput input {{
+            background-color: white !important;
+            color: black !important;
+        }}
 
-    /* TEXT AREA */
-    .stTextArea textarea {{
-        background-color: white !important;
-        color: black !important;
-    }}
+        /* TEXT AREA */
+        .stTextArea textarea {{
+            background-color: white !important;
+            color: black !important;
+        }}
 
-    /* SELECT BOXES / DROPDOWNS */
-    div[data-baseweb="select"] > div {{
-        background-color: white !important;
-        color: black !important;
-    }}
+        /* ALL DROPDOWN BOXES */
+        div[data-baseweb="select"] > div {{
+            background-color: white !important;
+            color: black !important;
+        }}
 
-    /* SELECT BOX TEXT */
-    div[data-baseweb="select"] span {{
-        color: black !important;
-    }}
+        /* DROPDOWN TEXT */
+        div[data-baseweb="select"] span {{
+            color: black !important;
+        }}
 
-    /* NUMBER INPUTS */
-    .stNumberInput input {{
-        background-color: white !important;
-        color: black !important;
-    }}
+        /* DROPDOWN ARROW */
+        div[data-baseweb="select"] svg {{
+            fill: black !important;
+        }}
 
-    /* CHECKBOXES */
-    .stCheckbox {{
-        color: black !important;
-    }}
+        /* DROPDOWN MENU */
+        div[role="listbox"] {{
+            background-color: white !important;
+        }}
 
-    /* RADIO BUTTONS */
-    .stRadio {{
-        color: black !important;
-    }}
+        div[role="option"] {{
+            background-color: white !important;
+            color: black !important;
+        }}
 
-    /* EXPANDER - CAMPAIGN SETTINGS */
-    div[data-testid="stExpander"] {{
-        background-color: white !important;
-        border-radius: 10px;
-        border: 1px solid #D6EAF5;
-    }}
+        div[role="option"]:hover {{
+            background-color: #EAF6FF !important;
+        }}
 
-    div[data-testid="stExpander"] details {{
-        background-color: white !important;
-    }}
-
-    /* EXPANDER TEXT */
-    div[data-testid="stExpander"] summary {{
-        background-color: white !important;
-        color: black !important;
-    }}
-
-    /* LABELS */
-    label {{
-        color: black !important;
-    }}
-
-    </style>
-    """,
+        </style>
+        """,
         unsafe_allow_html=True
     )
 
-set_background("skincare_background.png.png")
 
+set_background("skincare_background.png.png")
 
 # -----------------------------------
 # SKINCARE MARKETING CONTENT GENERATOR
@@ -208,10 +190,21 @@ contact_phone = st.text_input(
 # CONTENT TYPE
 # -----------------------------------
 
+st.markdown("""
+<div style="
+    background-color: white;
+    padding: 15px 20px 10px 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+">
+""", unsafe_allow_html=True)
+
 content_type = st.selectbox(
     "What do you want to generate?",
     ["📝 Text", "🖼️ Image"]
 )
+
+st.markdown("</div>", unsafe_allow_html=True)
 
 
 # -----------------------------------
