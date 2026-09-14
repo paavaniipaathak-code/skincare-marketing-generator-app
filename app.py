@@ -17,6 +17,7 @@ def set_background(image_file):
         f"""
         <style>
 
+        /* PAGE BACKGROUND */
         .stApp {{
             background-color: #EAF6FF;
             background-image: url("data:image/png;base64,{encoded}");
@@ -25,36 +26,43 @@ def set_background(image_file):
             background-attachment: fixed;
         }}
 
-        /* WHITE TEXT INPUT BOXES */
+        /* TEXT INPUT BOXES */
         .stTextInput input {{
             background-color: white !important;
             color: black !important;
         }}
 
-        /* WHITE TEXT AREA */
+        /* TEXT AREA */
         .stTextArea textarea {{
             background-color: white !important;
             color: black !important;
         }}
 
-        /* WHITE DROPDOWN BOXES */
+        /* DROPDOWN BOXES - WHITE */
         div[data-testid="stSelectbox"] div[data-baseweb="select"] {{
+            background: white !important;
             background-color: white !important;
-            border-radius: 6px !important;
+            border-radius: 8px !important;
         }}
 
         div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {{
+            background: white !important;
             background-color: white !important;
         }}
 
-        /* DROPDOWN SELECTED TEXT */
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] [role="combobox"] {{
+            background: white !important;
+            background-color: white !important;
+        }}
+
+        /* DROPDOWN TEXT */
         div[data-testid="stSelectbox"] div[data-baseweb="select"] span {{
-            color: black !important;
+            color: #1F2937 !important;
         }}
 
         /* DROPDOWN ARROW */
-        div[data-testid="stSelectbox"] svg {{
-            fill: black !important;
+        div[data-testid="stSelectbox"] div[data-baseweb="select"] svg {{
+            fill: #1F2937 !important;
         }}
 
         /* DROPDOWN OPTIONS */
@@ -64,7 +72,7 @@ def set_background(image_file):
 
         div[role="option"] {{
             background-color: white !important;
-            color: black !important;
+            color: #1F2937 !important;
         }}
 
         div[role="option"]:hover {{
