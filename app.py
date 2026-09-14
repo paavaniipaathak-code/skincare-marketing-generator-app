@@ -14,34 +14,81 @@ def set_background(image_file):
         encoded = base64.b64encode(file.read()).decode()
 
     st.markdown(
-        f"""
-        <style>
-        .stApp {{
-            background-color: #EAF6FF;
-            background-image: url("data:image/png;base64,{encoded}");
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-        }}
+    f"""
+    <style>
 
-        /* WHITE INPUT BOXES */
-        .stTextInput input {{
-            background-color: white !important;
-            color: black !important;
-        }}
+    /* PAGE BACKGROUND */
+    .stApp {{
+        background-color: #EAF6FF;
+        background-image: url("data:image/png;base64,{encoded}");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }}
 
-        .stTextArea textarea {{
-            background-color: white !important;
-            color: black !important;
-        }}
+    /* TEXT INPUT BOXES */
+    .stTextInput input {{
+        background-color: white !important;
+        color: black !important;
+    }}
 
-        .stSelectbox div[data-baseweb="select"] > div {{
-            background-color: white !important;
-            color: black !important;
-        }}
+    /* TEXT AREA */
+    .stTextArea textarea {{
+        background-color: white !important;
+        color: black !important;
+    }}
 
-        </style>
-        """,
+    /* SELECT BOXES / DROPDOWNS */
+    div[data-baseweb="select"] > div {{
+        background-color: white !important;
+        color: black !important;
+    }}
+
+    /* SELECT BOX TEXT */
+    div[data-baseweb="select"] span {{
+        color: black !important;
+    }}
+
+    /* NUMBER INPUTS */
+    .stNumberInput input {{
+        background-color: white !important;
+        color: black !important;
+    }}
+
+    /* CHECKBOXES */
+    .stCheckbox {{
+        color: black !important;
+    }}
+
+    /* RADIO BUTTONS */
+    .stRadio {{
+        color: black !important;
+    }}
+
+    /* EXPANDER - CAMPAIGN SETTINGS */
+    div[data-testid="stExpander"] {{
+        background-color: white !important;
+        border-radius: 10px;
+        border: 1px solid #D6EAF5;
+    }}
+
+    div[data-testid="stExpander"] details {{
+        background-color: white !important;
+    }}
+
+    /* EXPANDER TEXT */
+    div[data-testid="stExpander"] summary {{
+        background-color: white !important;
+        color: black !important;
+    }}
+
+    /* LABELS */
+    label {{
+        color: black !important;
+    }}
+
+    </style>
+    """,
         unsafe_allow_html=True
     )
 
