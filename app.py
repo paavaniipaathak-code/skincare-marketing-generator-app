@@ -1,14 +1,24 @@
 import streamlit as st
 import base64
-from google import genai
-
-client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 
 # -----------------------------------
-# PAGE BACKGROUND + CUSTOM CSS
+# PAGE CONFIGURATION
 # -----------------------------------
+
+st.set_page_config(
+    page_title="Skincare Marketing Generator",
+    page_icon="✨",
+    layout="centered"
+)
+
+
+# -----------------------------------
+# BACKGROUND
+# -----------------------------------
+
 def set_background(image_file):
+
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
 
@@ -29,49 +39,44 @@ def set_background(image_file):
         .stTextInput input {{
             background-color: white !important;
             color: black !important;
+            border-radius: 8px !important;
         }}
 
         /* TEXT AREA */
         .stTextArea textarea {{
             background-color: white !important;
             color: black !important;
+            border-radius: 8px !important;
         }}
 
-        /* ==============================
-           FORCE ALL DROPDOWNS WHITE
-           ============================== */
-
-        div[data-testid="stSelectbox"] [data-baseweb="select"],
-        div[data-testid="stSelectbox"] [data-baseweb="select"] > div,
-        div[data-testid="stSelectbox"] [data-baseweb="base-input"],
-        div[data-testid="stSelectbox"] [data-baseweb="input"],
-        div[data-testid="stSelectbox"] [role="combobox"] {{
-            background-color: #FFFFFF !important;
-            background: #FFFFFF !important;
+        /* DROPDOWN BOXES */
+        div[data-baseweb="select"] > div {{
+            background-color: white !important;
+            color: black !important;
+            border-radius: 8px !important;
         }}
 
-        /* Selected value */
-        div[data-testid="stSelectbox"] [data-baseweb="select"] span {{
-            color: #222222 !important;
+        div[data-baseweb="select"] span {{
+            color: black !important;
         }}
 
-        /* Arrow */
-        div[data-testid="stSelectbox"] [data-baseweb="select"] svg {{
-            fill: #222222 !important;
+        div[data-baseweb="select"] svg {{
+            fill: black !important;
         }}
 
-        /* Dropdown menu */
+        /* DROPDOWN MENU */
         div[role="listbox"] {{
-            background-color: #FFFFFF !important;
+            background-color: white !important;
         }}
 
         div[role="option"] {{
-            background-color: #FFFFFF !important;
-            color: #222222 !important;
+            background-color: white !important;
+            color: black !important;
         }}
 
-        div[role="option"]:hover {{
-            background-color: #EAF6FF !important;
+        /* LABELS */
+        label {{
+            color: black !important;
         }}
 
         </style>
@@ -82,8 +87,19 @@ def set_background(image_file):
 
 set_background("skincare_background.png.png")
 
+
 # -----------------------------------
-# SKINCARE MARKETING CONTENT GENERATOR
+# BANNER
+# -----------------------------------
+
+st.image(
+    "skincare_banner.png.png",
+    use_container_width=True
+)
+
+
+# -----------------------------------
+# TITLE
 # -----------------------------------
 
 st.title("✨ Skincare Marketing Content Generator")
@@ -94,36 +110,42 @@ st.write(
 
 
 # -----------------------------------
-# WEBSITE BANNER
+# BRAND INFORMATION
 # -----------------------------------
 
-st.image("skincare_banner.png.png", use_container_width=True)
-
-
-# -----------------------------------
-# BRAND & PRODUCT INFORMATION
-# -----------------------------------
-
-st.subheader("📋 Brand & Product Information")
+st.header("🌸 Brand Information")
 
 brand_name = st.text_input(
-    "🏷️ What is the name of the brand?"
+    "Brand Name *"
 )
 
 product_name = st.text_input(
-    "🧴 What is the name of the product?"
+    "Product Name *"
 )
 
 target_audience = st.text_input(
-    "👥 Who is the target audience?"
+    "Target Audience *",
+    placeholder="Example: Young adults with sensitive skin"
 )
 
 benefits = st.text_area(
-    "✨ What are the product benefits?"
+    "Product Benefits *",
+    placeholder="Example: Hydrates skin, reduces dryness, gives a natural glow"
 )
 
-category = st.text_input(
-    "📦 What is the product category?"
+category = st.selectbox(
+    "Product Category",
+    [
+        "Face Serum",
+        "Moisturizer",
+        "Cleanser",
+        "Sunscreen",
+        "Face Mask",
+        "Eye Cream",
+        "Body Care",
+        "Lip Care",
+        "Other"
+    ]
 )
 
 
@@ -173,43 +195,41 @@ cta = st.selectbox(
 # CONTACT INFORMATION
 # -----------------------------------
 
-st.subheader("📇 Contact Information")
+st.subheader("📞 Contact Information")
 
 contact_person = st.text_input(
-    "👤 Who can customers contact?"
+    "Contact Person *"
 )
 
 contact_role = st.text_input(
-    "💼 What is their role? (e.g. Marketing Manager)"
+    "Contact Role",
+    placeholder="Example: Marketing Manager"
 )
 
 contact_email = st.text_input(
-    "📧 What is their email address?"
+    "Contact Email *"
 )
 
 contact_phone = st.text_input(
-    "📞 What is their contact number?"
+    "Contact Phone"
 )
+
 
 # -----------------------------------
 # CONTENT TYPE
 # -----------------------------------
 
-st.markdown("""
-<div style="
-    background-color: white;
-    padding: 15px 20px 10px 20px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-">
-""", unsafe_allow_html=True)
+st.subheader("📢 What would you like to generate?")
 
 content_type = st.selectbox(
-    "What do you want to generate?",
-    ["📝 Text", "🖼️ Image"]
+    "Select Marketing Content",
+    [
+        "📧 Marketing Email",
+        "💼 LinkedIn Post",
+        "📸 Instagram Caption",
+        "🏷️ Tagline"
+    ]
 )
-
-st.markdown("</div>", unsafe_allow_html=True)
 
 
 # -----------------------------------
@@ -219,7 +239,7 @@ st.markdown("</div>", unsafe_allow_html=True)
 if st.button("🚀 Generate Content"):
 
     # -----------------------------------
-    # CHECK REQUIRED INFORMATION
+    # VALIDATION
     # -----------------------------------
 
     if (
@@ -227,128 +247,46 @@ if st.button("🚀 Generate Content"):
         or not product_name
         or not target_audience
         or not benefits
-        or not category
         or not contact_person
         or not contact_email
     ):
 
         st.warning(
-            "Please fill in all the required information before generating content."
+            "Please fill in all the required fields marked with *."
         )
 
     else:
 
         # -----------------------------------
-        # IMAGE GENERATION
+        # MARKETING EMAIL
         # -----------------------------------
 
-        if content_type == "🖼️ Image":
-
-            st.subheader("🖼️ AI Generated Marketing Image")
-
-            image_prompt = f"""
-            Create a professional skincare marketing advertisement.
-
-            Brand name: {brand_name}
-            Product name: {product_name}
-            Product category: {category}
-            Target audience: {target_audience}
-            Product benefits: {benefits}
-
-            Campaign objective: {campaign_objective}
-            Marketing tone: {tone}
-            Call to action: {cta}
-
-            Create a beautiful premium skincare advertisement.
-
-            Visual style:
-            - Soft pastel blue background
-            - Elegant skincare product photography
-            - Botanical leaves
-            - Subtle flowers
-            - Soft natural lighting
-            - Clean and modern design
-            - Premium beauty brand aesthetic
-            - Professional social media advertisement
-            - Attractive composition
-            """
-
-            with st.spinner("✨ Creating your skincare image..."):
-
-                try:
-
-                    response = client.models.generate_content(
-                        model="gemini-3.1-flash-image-preview",
-                        contents=image_prompt
-                    )
-
-                    image_found = False
-
-                    for part in response.candidates[0].content.parts:
-
-                        if part.inline_data is not None:
-
-                            image_bytes = part.inline_data.data
-
-                            st.image(
-                                image_bytes,
-                                caption=f"{product_name} — AI Marketing Creative",
-                                use_container_width=True
-                            )
-
-                            image_found = True
-
-                    if not image_found:
-
-                        st.warning(
-                            "Gemini did not return an image. Please try again."
-                        )
-
-                except Exception as e:
-
-                    st.error(
-                        f"Unable to generate the image. Error: {e}"
-                    )
-
-
-        # -----------------------------------
-        # TEXT GENERATION
-        # -----------------------------------
-
-        else:
-
-            # -----------------------------------
-            # MARKETING EMAIL
-            # -----------------------------------
+        if content_type == "📧 Marketing Email":
 
             email = f"""
 Subject: Discover {product_name} by {brand_name}
 
 Dear Customer,
 
-We are pleased to introduce {product_name}, a thoughtfully designed
-{category.lower()} from {brand_name}, created especially for
-{target_audience}.
+We are excited to introduce {product_name}, a thoughtfully
+designed {category.lower()} from {brand_name}.
 
-Your skincare routine should be simple, effective and enjoyable.
-{product_name} is designed to offer {benefits}.
+Created especially for {target_audience}, {product_name}
+is designed to provide {benefits}.
 
 Why you'll love {product_name}:
 
-• {benefits}
+✨ {benefits}
 
-This campaign focuses on {campaign_objective.lower()} and is designed
-to connect with customers through a {tone.lower()} approach.
+Our current campaign focuses on
+{campaign_objective.lower()} and communicates through a
+{tone.lower()} approach.
 
-Whether you're looking to refresh your daily skincare routine or
-give your skin a little extra care, {product_name} makes it easy
-to take the next step.
+Ready to make {product_name} part of your skincare routine?
 
-Ready to discover {product_name}?
+{cta} and discover what {brand_name} has to offer.
 
-{cta} and explore what {brand_name} has to offer.
-
-For more information, please feel free to get in touch with us.
+For more information, please feel free to contact us.
 
 Warm regards,
 
@@ -360,70 +298,6 @@ Email: {contact_email}
 Phone: {contact_phone}
 """
 
-
-            # -----------------------------------
-            # LINKEDIN POST
-            # -----------------------------------
-
-            linkedin = f"""
-✨ Introducing {product_name} by {brand_name}
-
-At {brand_name}, we believe skincare should be simple, effective
-and easy to make a part of everyday life.
-
-Designed especially for {target_audience}, our {category.lower()}
-is created to deliver {benefits}.
-
-Our campaign focuses on {campaign_objective.lower()} with a
-{tone.lower()} approach designed to connect with today's consumers.
-
-With {product_name}, we are bringing together thoughtful skincare
-and an experience designed around the needs of today's consumers.
-
-{cta} and discover {product_name} today. ✨
-
-#Skincare #Beauty #SelfCare #{brand_name.replace(" ", "")}
-"""
-
-
-            # -----------------------------------
-            # INSTAGRAM CAPTION
-            # -----------------------------------
-
-            instagram = f"""
-✨ Meet {product_name} by {brand_name} ✨
-
-Your skincare routine deserves something special. 🤍
-
-Designed for {target_audience}, {product_name} is a
-{category.lower()} created to help you enjoy:
-
-✨ {benefits}
-
-Simple routine. Thoughtful skincare. Beautiful results.
-
-Our {campaign_objective.lower()} campaign is all about making
-skincare feel {tone.lower()} and easy to enjoy.
-
-Ready to make {product_name} part of your everyday routine?
-
-{cta}! ✨
-
-#Skincare #Beauty #SelfCare #Glow #SkincareRoutine
-"""
-
-
-            # -----------------------------------
-            # TAGLINE
-            # -----------------------------------
-
-            tagline = f"{brand_name} – Where Better Skincare Begins."
-
-
-            # -----------------------------------
-            # DISPLAY RESULTS
-            # -----------------------------------
-
             st.subheader("📧 Marketing Email")
 
             st.text_area(
@@ -433,23 +307,93 @@ Ready to make {product_name} part of your everyday routine?
             )
 
 
+        # -----------------------------------
+        # LINKEDIN POST
+        # -----------------------------------
+
+        elif content_type == "💼 LinkedIn Post":
+
+            linkedin = f"""
+✨ Introducing {product_name} by {brand_name}
+
+At {brand_name}, we believe skincare should be simple,
+effective and easy to make part of everyday life.
+
+Designed especially for {target_audience},
+our {category.lower()} is created to provide
+{benefits}.
+
+Our campaign focuses on {campaign_objective.lower()}
+with a {tone.lower()} approach.
+
+We are proud to bring thoughtful skincare solutions
+to today's consumers.
+
+{cta} and discover {product_name} today. ✨
+
+#Skincare #Beauty #SelfCare #SkincareRoutine
+#{brand_name.replace(" ", "")}
+"""
+
             st.subheader("💼 LinkedIn Post")
 
             st.text_area(
                 "Generated LinkedIn Post",
                 linkedin,
-                height=300
+                height=350
             )
 
+
+        # -----------------------------------
+        # INSTAGRAM CAPTION
+        # -----------------------------------
+
+        elif content_type == "📸 Instagram Caption":
+
+            instagram = f"""
+✨ Meet {product_name} by {brand_name} ✨
+
+Your skincare routine deserves something special. 🤍
+
+Designed for {target_audience}, {product_name} is a
+{category.lower()} created to provide:
+
+✨ {benefits}
+
+Simple routine.
+Thoughtful skincare.
+Beautiful results. 🌸
+
+Our {campaign_objective.lower()} campaign is all about
+making skincare feel {tone.lower()} and easy to enjoy.
+
+Ready to make {product_name} part of your routine?
+
+{cta}! ✨
+
+#Skincare #Beauty #SelfCare #Glow
+#SkincareRoutine #HealthySkin
+"""
 
             st.subheader("📸 Instagram Caption")
 
             st.text_area(
                 "Generated Instagram Caption",
                 instagram,
-                height=300
+                height=350
             )
 
+
+        # -----------------------------------
+        # TAGLINE
+        # -----------------------------------
+
+        elif content_type == "🏷️ Tagline":
+
+            tagline = (
+                f"{brand_name} – "
+                f"Where Better Skincare Begins."
+            )
 
             st.subheader("🏷️ Tagline")
 
