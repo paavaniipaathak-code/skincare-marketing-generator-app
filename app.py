@@ -30,8 +30,19 @@ benefits = st.text_area(
     "✨ What are the product benefits?"
 )
 
-category = st.text_input(
+    category = st.text_input(
     "📦 What is the product category?"
+)
+
+campaign_objective = st.selectbox(
+    "🎯 What is the campaign objective?",
+    [
+        "🆕 Product Launch",
+        "🎉 Festive Campaign",
+        "🛍️ Promotional Sale",
+        "🌱 Brand Awareness",
+        "💕 Customer Engagement"
+    ]
 )
 
 tone = st.selectbox(
@@ -43,8 +54,20 @@ tone = st.selectbox(
         "Luxury",
         "Casual"
     ]
-)
 
+)
+cta = st.selectbox(
+    "📢 Choose a Call-to-Action",
+    [
+        "Shop Now",
+        "Buy Now",
+        "Learn More",
+        "Try It Today",
+        "Get 20% Off",
+        "Sign Up Now",
+        "Discover More"
+    ]
+)
 # -----------------------------------
 # CONTACT INFORMATION
 # -----------------------------------
