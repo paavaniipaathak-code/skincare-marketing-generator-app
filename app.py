@@ -1,6 +1,17 @@
 import streamlit as st
 
 # -----------------------------------
+# PAGE BACKGROUND
+# -----------------------------------
+
+st.markdown("""
+<style>
+.stApp {
+    background-color: #FFF8F5;
+}
+</style>
+""", unsafe_allow_html=True)
+# -----------------------------------
 # SKINCARE MARKETING CONTENT GENERATOR
 # -----------------------------------
 
@@ -9,7 +20,11 @@ st.title("✨ Skincare Marketing Content Generator")
 st.write(
     "Create professional marketing content for your skincare brand in seconds."
 )
+# -----------------------------------
+# WEBSITE BANNER
+# -----------------------------------
 
+st.image("skincare_banner.png", use_container_width=True)
 # -----------------------------------
 # BRAND & PRODUCT INFORMATION
 # -----------------------------------
