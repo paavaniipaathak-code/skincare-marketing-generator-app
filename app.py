@@ -11,6 +11,8 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
+
+
 # -----------------------------------
 # SKINCARE MARKETING CONTENT GENERATOR
 # -----------------------------------
@@ -20,14 +22,20 @@ st.title("✨ Skincare Marketing Content Generator")
 st.write(
     "Create professional marketing content for your skincare brand in seconds."
 )
+
+
 # -----------------------------------
 # WEBSITE BANNER
 # -----------------------------------
 
 st.image("skincare_banner.png", use_container_width=True)
+
+
 # -----------------------------------
 # BRAND & PRODUCT INFORMATION
 # -----------------------------------
+
+st.subheader("📋 Brand & Product Information")
 
 brand_name = st.text_input(
     "🏷️ What is the name of the brand?"
@@ -41,14 +49,20 @@ target_audience = st.text_input(
     "👥 Who is the target audience?"
 )
 
-benefits = st.text_area( 
-    "✨ What are the product benefits?" 
-) 
- 
-category = st.text_input( 
-    "📦 What is the product category?" 
-
+benefits = st.text_area(
+    "✨ What are the product benefits?"
 )
+
+category = st.text_input(
+    "📦 What is the product category?"
+)
+
+
+# -----------------------------------
+# CAMPAIGN SETTINGS
+# -----------------------------------
+
+st.subheader("🎯 Campaign Settings")
 
 campaign_objective = st.selectbox(
     "🎯 What is the campaign objective?",
@@ -70,8 +84,8 @@ tone = st.selectbox(
         "Luxury",
         "Casual"
     ]
-
 )
+
 cta = st.selectbox(
     "📢 Choose a Call-to-Action",
     [
@@ -84,6 +98,8 @@ cta = st.selectbox(
         "Discover More"
     ]
 )
+
+
 # -----------------------------------
 # CONTACT INFORMATION
 # -----------------------------------
@@ -105,6 +121,7 @@ contact_email = st.text_input(
 contact_phone = st.text_input(
     "📞 What is their contact number?"
 )
+
 
 # -----------------------------------
 # GENERATE CONTENT
@@ -152,12 +169,16 @@ Why you'll love {product_name}:
 
 • {benefits}
 
+This campaign focuses on {campaign_objective.lower()} and is designed
+to connect with customers through a {tone.lower()} approach.
+
 Whether you're looking to refresh your daily skincare routine or
 give your skin a little extra care, {product_name} makes it easy
 to take the next step.
 
-Discover {product_name} by {brand_name} and make it a part of
-your everyday skincare routine.
+Ready to discover {product_name}?
+
+{cta} and explore what {brand_name} has to offer.
 
 For more information, please feel free to get in touch with us.
 
@@ -170,6 +191,7 @@ Warm regards,
 Email: {contact_email}
 Phone: {contact_phone}
 """
+
 
         # -----------------------------------
         # LINKEDIN POST
@@ -184,13 +206,17 @@ and easy to make a part of everyday life.
 Designed especially for {target_audience}, our {category.lower()}
 is created to deliver {benefits}.
 
+Our campaign focuses on {campaign_objective.lower()} with a
+{tone.lower()} approach designed to connect with today's consumers.
+
 With {product_name}, we are bringing together thoughtful skincare
 and an experience designed around the needs of today's consumers.
 
-Discover {product_name} and explore the next step in your skincare journey.
+{cta} and discover {product_name} today. ✨
 
 #Skincare #Beauty #SelfCare #{brand_name.replace(" ", "")}
 """
+
 
         # -----------------------------------
         # INSTAGRAM CAPTION
@@ -208,12 +234,16 @@ Designed for {target_audience}, {product_name} is a
 
 Simple routine. Thoughtful skincare. Beautiful results.
 
+Our {campaign_objective.lower()} campaign is all about making
+skincare feel {tone.lower()} and easy to enjoy.
+
 Ready to make {product_name} part of your everyday routine?
 
-Discover it today with {brand_name}. ✨
+{cta}! ✨
 
 #Skincare #Beauty #SelfCare #Glow #SkincareRoutine
 """
+
 
         # -----------------------------------
         # TAGLINE
@@ -221,30 +251,38 @@ Discover it today with {brand_name}. ✨
 
         tagline = f"{brand_name} – Where Better Skincare Begins."
 
+
         # -----------------------------------
         # DISPLAY RESULTS
         # -----------------------------------
 
         st.subheader("📧 Marketing Email")
+
         st.text_area(
             "Generated Email",
             email,
             height=450
         )
 
+
         st.subheader("💼 LinkedIn Post")
+
         st.text_area(
             "Generated LinkedIn Post",
             linkedin,
             height=300
         )
 
+
         st.subheader("📸 Instagram Caption")
+
         st.text_area(
             "Generated Instagram Caption",
             instagram,
             height=300
         )
 
+
         st.subheader("🏷️ Tagline")
+
         st.success(tagline)
