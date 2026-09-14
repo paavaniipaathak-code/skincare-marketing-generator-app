@@ -8,7 +8,7 @@ import base64
 
 st.set_page_config(
     page_title="Skincare Marketing Generator",
-    page_icon="✨",
+    page_icon="🫧",
     layout="centered"
 )
 
@@ -115,7 +115,7 @@ st.write(
 # BRAND INFORMATION
 # -----------------------------------
 
-st.header("🌸 Brand Information")
+st.header("🪞 Brand Information")
 
 brand_name = st.text_input(
     "Brand Name *"
@@ -226,13 +226,18 @@ st.subheader("📢 What would you like to generate?")
 content_type = st.selectbox(
     "Select Marketing Content",
     [
-        "📧 Marketing Email",
+        "💌 Marketing Email",
         "💼 LinkedIn Post",
         "📸 Instagram Caption",
         "🏷️ Tagline"
     ]
 )
+# Show the selected platform logo
+if content_type == "LinkedIn Post":
+    st.image("linkedin_logo.png", width=45)
 
+elif content_type == "Instagram Caption":
+    st.image("instagram_logo.png", width=45)
 
 # -----------------------------------
 # GENERATE CONTENT
