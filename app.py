@@ -8,8 +8,7 @@ client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 # -----------------------------------
 # PAGE BACKGROUND + CUSTOM CSS
 # -----------------------------------
-
-def set_background(image_file):
+\def set_background(image_file):
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
 
@@ -38,41 +37,37 @@ def set_background(image_file):
             color: black !important;
         }}
 
-        /* DROPDOWN BOXES - WHITE */
-        div[data-testid="stSelectbox"] div[data-baseweb="select"] {{
-            background: white !important;
-            background-color: white !important;
-            border-radius: 8px !important;
+        /* ==============================
+           FORCE ALL DROPDOWNS WHITE
+           ============================== */
+
+        div[data-testid="stSelectbox"] [data-baseweb="select"],
+        div[data-testid="stSelectbox"] [data-baseweb="select"] > div,
+        div[data-testid="stSelectbox"] [data-baseweb="base-input"],
+        div[data-testid="stSelectbox"] [data-baseweb="input"],
+        div[data-testid="stSelectbox"] [role="combobox"] {{
+            background-color: #FFFFFF !important;
+            background: #FFFFFF !important;
         }}
 
-        div[data-testid="stSelectbox"] div[data-baseweb="select"] > div {{
-            background: white !important;
-            background-color: white !important;
+        /* Selected value */
+        div[data-testid="stSelectbox"] [data-baseweb="select"] span {{
+            color: #222222 !important;
         }}
 
-        div[data-testid="stSelectbox"] div[data-baseweb="select"] [role="combobox"] {{
-            background: white !important;
-            background-color: white !important;
+        /* Arrow */
+        div[data-testid="stSelectbox"] [data-baseweb="select"] svg {{
+            fill: #222222 !important;
         }}
 
-        /* DROPDOWN TEXT */
-        div[data-testid="stSelectbox"] div[data-baseweb="select"] span {{
-            color: #1F2937 !important;
-        }}
-
-        /* DROPDOWN ARROW */
-        div[data-testid="stSelectbox"] div[data-baseweb="select"] svg {{
-            fill: #1F2937 !important;
-        }}
-
-        /* DROPDOWN OPTIONS */
+        /* Dropdown menu */
         div[role="listbox"] {{
-            background-color: white !important;
+            background-color: #FFFFFF !important;
         }}
 
         div[role="option"] {{
-            background-color: white !important;
-            color: #1F2937 !important;
+            background-color: #FFFFFF !important;
+            color: #222222 !important;
         }}
 
         div[role="option"]:hover {{
