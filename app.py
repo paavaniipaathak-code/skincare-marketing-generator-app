@@ -1,6 +1,8 @@
 import streamlit as st
 import base64
+from openai import OpenAI
 
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 # -----------------------------------
 # PAGE BACKGROUND
@@ -138,6 +140,15 @@ contact_phone = st.text_input(
     "📞 What is their contact number?"
 )
 
+# -----------------------------------
+# CONTENT TYPE
+# -----------------------------------
+
+content_type = st.selectbox(
+    "What do you want to generate?",
+    ["📝 Text", "🖼️ Image"]
+)
+
 
 # -----------------------------------
 # GENERATE CONTENT
@@ -149,19 +160,19 @@ if st.button("🚀 Generate Content"):
     # CHECK REQUIRED INFORMATION
     # -----------------------------------
 
-    if (
-        not brand_name
-        or not product_name
-        or not target_audience
-        or not benefits
-        or not category
-        or not contact_person
-        or not contact_email
-    ):
+ if (...):
+        ...
+    else:
 
-        st.warning(
-            "Please fill in all the required information before generating content."
-        )
+        if content_type == "📝 Text":
+            # your existing email,
+            # LinkedIn,
+            # Instagram,
+            # tagline
+            # code
+
+        elif content_type == "🖼️ Image":
+            # AI image generation
 
     else:
 
