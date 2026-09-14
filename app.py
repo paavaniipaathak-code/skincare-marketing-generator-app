@@ -1,8 +1,8 @@
 import streamlit as st
 import base64
-from openai import OpenAI
+from google import genai
 
-client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 # -----------------------------------
 # PAGE BACKGROUND
@@ -187,44 +187,60 @@ if st.button("🚀 Generate Content"):
             image_prompt = f"""
             Create a professional skincare marketing advertisement.
 
-            Brand: {brand_name}
-            Product: {product_name}
-            Category: {category}
+            Brand name: {brand_name}
+            Product name: {product_name}
+            Product category: {category}
             Target audience: {target_audience}
             Product benefits: {benefits}
+
             Campaign objective: {campaign_objective}
             Marketing tone: {tone}
             Call to action: {cta}
 
+            Create a beautiful premium skincare advertisement.
+
             Visual style:
-            Premium skincare advertisement.
-            Soft pastel blue background.
-            Elegant skincare products.
-            Botanical leaves and subtle flowers.
-            Soft natural lighting.
-            Clean and modern composition.
-            Professional product photography.
-            Beautiful social-media-friendly marketing design.
+            - Soft pastel blue background
+            - Elegant skincare product photography
+            - Botanical leaves
+            - Subtle flowers
+            - Soft natural lighting
+            - Clean and modern design
+            - Premium beauty brand aesthetic
+            - Professional social media advertisement
+            - Attractive composition
             """
 
             with st.spinner("✨ Creating your skincare image..."):
 
                 try:
 
-                    result = client.images.generate(
-                        model="gpt-image-2",
-                        prompt=image_prompt
+                    response = client.models.generate_content(
+                        model="gemini-3.1-flash-image-preview",
+                        contents=image_prompt
                     )
 
-                    image_base64 = result.data[0].b64_json
+                    image_found = False
 
-                    image_bytes = base64.b64decode(image_base64)
+                    for part in response.candidates[0].content.parts:
 
-                    st.image(
-                        image_bytes,
-                        caption=f"{product_name} — AI Marketing Creative",
-                        use_container_width=True
-                    )
+                        if part.inline_data is not None:
+
+                            image_bytes = part.inline_data.data
+
+                            st.image(
+                                image_bytes,
+                                caption=f"{product_name} — AI Marketing Creative",
+                                use_container_width=True
+                            )
+
+                            image_found = True
+
+                    if not image_found:
+
+                        st.warning(
+                            "Gemini did not return an image. Please try again."
+                        )
 
                 except Exception as e:
 
