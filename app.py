@@ -41,12 +41,13 @@ target_audience = st.text_input(
     "👥 Who is the target audience?"
 )
 
-benefits = st.text_area(
-    "✨ What are the product benefits?"
-)
+benefits = st.text_area( 
+    "✨ What are the product benefits?" 
+) 
+ 
+category = st.text_input( 
+    "📦 What is the product category?" 
 
-    category = st.text_input(
-    "📦 What is the product category?"
 )
 
 campaign_objective = st.selectbox(
