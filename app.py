@@ -1155,9 +1155,6 @@ if "versions" in st.session_state:
 # FOOTER
 # ============================================================
 
-st.divider()
-
-st.caption(
-    "🫧 Skincare Marketing Content Generator | "
-    "Intelligent rule-based content generation system"
-)
+ st.success(
+            "Your content has been regenerated successfully!"
+        )
