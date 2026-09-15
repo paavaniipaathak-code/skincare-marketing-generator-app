@@ -19,7 +19,6 @@ st.set_page_config(
 # ============================================================
 
 def set_background(image_file):
-
     with open(image_file, "rb") as file:
         encoded = base64.b64encode(file.read()).decode()
 
@@ -127,7 +126,7 @@ benefits = st.text_area(
 
 
 # ============================================================
-# CATEGORY
+# PRODUCT CATEGORY
 # ============================================================
 
 category = st.selectbox(
@@ -317,10 +316,8 @@ def understand_additional_info(text):
     }
 
     for keyword, meaning in attribute_keywords.items():
-
         if keyword in text:
             information["attributes"].append(meaning)
-
 
     # --------------------------------------------------------
     # CAMPAIGN CONTEXT
@@ -338,10 +335,8 @@ def understand_additional_info(text):
     }
 
     for keyword, meaning in campaign_keywords.items():
-
         if keyword in text:
             information["campaign_context"].append(meaning)
-
 
     # --------------------------------------------------------
     # AUDIENCE CONTEXT
@@ -362,10 +357,8 @@ def understand_additional_info(text):
     }
 
     for keyword, meaning in audience_keywords.items():
-
         if keyword in text:
             information["audience_context"].append(meaning)
-
 
     # --------------------------------------------------------
     # CUSTOMER NEEDS / PREFERENCES
@@ -384,21 +377,17 @@ def understand_additional_info(text):
     }
 
     for keyword, meaning in preference_keywords.items():
-
         if keyword in text:
             information["preferences"].append(meaning)
-
 
     # --------------------------------------------------------
     # IF USER SELECTED OTHER
     # --------------------------------------------------------
 
     if category == "Other" and text.strip():
-
         information["general"].append(
             "User-defined product category/details"
         )
-
 
     # --------------------------------------------------------
     # REMOVE DUPLICATES
@@ -449,7 +438,6 @@ def create_campaign_idea():
             "Additional product details provided by user"
         )
 
-
     # --------------------------------------------------------
     # SELECT CAMPAIGN CONCEPT
     # --------------------------------------------------------
@@ -468,7 +456,6 @@ def create_campaign_idea():
             "This Diwali, let your skin join the celebration. ✨"
         )
 
-
     elif "college students" in info["audience_context"]:
 
         campaign_name = (
@@ -483,7 +470,6 @@ def create_campaign_idea():
         hook = (
             "Busy schedule? Your skincare routine doesn't have to be."
         )
-
 
     elif "vegan" in info["attributes"]:
 
@@ -500,7 +486,6 @@ def create_campaign_idea():
             "Good skincare. Thoughtful choices."
         )
 
-
     elif campaign_objective == "🆕 Product Launch":
 
         campaign_name = f"✨ Meet {product_name}"
@@ -515,7 +500,6 @@ def create_campaign_idea():
             "Your new skincare essential has arrived."
         )
 
-
     elif campaign_objective == "🎉 Festive Campaign":
 
         campaign_name = "✨ Glow Into The Celebration"
@@ -528,7 +512,6 @@ def create_campaign_idea():
         hook = (
             "Celebrate every moment. Glow through every one."
         )
-
 
     elif campaign_objective == "🛍️ Promotional Sale":
 
@@ -546,11 +529,10 @@ def create_campaign_idea():
             "Your skincare upgrade just got even better."
         )
 
-
     elif campaign_objective == "💕 Customer Engagement":
 
         campaign_name = (
-            f"💕 Get to Know Your Glow"
+            "💕 Get to Know Your Glow"
         )
 
         big_idea = (
@@ -562,7 +544,6 @@ def create_campaign_idea():
         hook = (
             "What's your skin's favourite part of the routine?"
         )
-
 
     else:
 
@@ -578,7 +559,6 @@ def create_campaign_idea():
         hook = (
             "Skincare that fits into your everyday."
         )
-
 
     return {
         "name": campaign_name,
@@ -626,8 +606,9 @@ def generate_content(version, campaign):
             + ". "
         )
 
-    # If Other is selected and the user described the product,
-    # use that description in the generated content.
+    # --------------------------------------------------------
+    # PRODUCT CATEGORY TEXT
+    # --------------------------------------------------------
 
     product_category_text = category.lower()
 
@@ -637,23 +618,20 @@ def generate_content(version, campaign):
             "specialized skincare product described by the user"
         )
 
-
-    # ========================================================
+    # --------------------------------------------------------
     # VERSION OPENINGS
-    # ========================================================
+    # --------------------------------------------------------
 
     if version == 1:
 
         opening = campaign["hook"]
 
-
     elif version == 2:
 
         opening = (
-            f"What if your skincare routine could make "
-            f"every day feel a little better?"
+            "What if your skincare routine could make "
+            "every day feel a little better?"
         )
-
 
     else:
 
@@ -662,25 +640,21 @@ def generate_content(version, campaign):
             f"{product_name} is ready to be part of it."
         )
 
-
-    # ========================================================
+    # --------------------------------------------------------
     # CREATIVITY LEVEL
-    # ========================================================
+    # --------------------------------------------------------
 
     if creativity_level == "Simple":
 
         style = "clear, simple and professional"
 
-
     elif creativity_level == "Balanced":
 
         style = "engaging, warm and creative"
 
-
     else:
 
         style = "bold, memorable, emotional and highly creative"
-
 
     # ========================================================
     # MARKETING EMAIL
@@ -730,7 +704,6 @@ Email: {contact_email}
 Phone: {contact_phone}
 """
 
-
     # ========================================================
     # LINKEDIN POST
     # ========================================================
@@ -766,7 +739,6 @@ connect with today's consumers.
 #{brand_name.replace(" ", "")}
 """
 
-
     # ========================================================
     # INSTAGRAM CAPTION
     # ========================================================
@@ -800,7 +772,6 @@ Beautiful results. 🌸
 {hashtags}
 """
 
-
     # ========================================================
     # TAGLINE
     # ========================================================
@@ -808,11 +779,8 @@ Beautiful results. 🌸
     else:
 
         taglines = [
-
             f"{brand_name} – Better Skin Starts Here.",
-
             f"{product_name} – Your Skin's New Essential.",
-
             f"{brand_name} – Skincare Made to Stand Out."
         ]
 
@@ -841,7 +809,6 @@ if st.button(
             "Please fill in all the required fields marked with *."
         )
 
-
     else:
 
         campaign = create_campaign_idea()
@@ -868,7 +835,6 @@ if st.button(
             + campaign["hook"]
         )
 
-
         # ----------------------------------------------------
         # SMART UNDERSTANDING
         # ----------------------------------------------------
@@ -880,36 +846,40 @@ if st.button(
             st.subheader("🧠 What We Understood")
 
             if info["attributes"]:
+
                 st.write(
                     "🏷️ **Product attributes:** "
                     + ", ".join(info["attributes"])
                 )
 
             if info["campaign_context"]:
+
                 st.write(
                     "🎉 **Campaign context:** "
                     + ", ".join(info["campaign_context"])
                 )
 
             if info["audience_context"]:
+
                 st.write(
                     "👥 **Audience context:** "
                     + ", ".join(info["audience_context"])
                 )
 
             if info["preferences"]:
+
                 st.write(
                     "💡 **Customer needs:** "
                     + ", ".join(info["preferences"])
                 )
 
             if category == "Other":
+
                 st.write(
                     "📦 **Product category:** "
                     "Other — using your description as additional "
                     "product information."
                 )
-
 
         # ----------------------------------------------------
         # THREE VERSIONS
@@ -991,7 +961,6 @@ if "versions" in st.session_state:
         ]
     )
 
-
     if st.button(
         "🔄 Regenerate",
         use_container_width=True
@@ -1010,7 +979,6 @@ if "versions" in st.session_state:
             st.session_state["versions"]
         )
 
-
         # ----------------------------------------------------
         # IMPROVEMENT OPTIONS
         # ----------------------------------------------------
@@ -1019,8 +987,8 @@ if "versions" in st.session_state:
 
             catchy_openings = [
                 f"✨ Your glow called. It wants {product_name}.",
-                f"Ready to make your skincare routine unforgettable?",
-                f"Your next skincare obsession has arrived. ✨"
+                "Ready to make your skincare routine unforgettable?",
+                "Your next skincare obsession has arrived. ✨"
             ]
 
             improved = (
@@ -1028,7 +996,6 @@ if "versions" in st.session_state:
                 + "\n\n"
                 + base_version
             )
-
 
         elif improvement == "Make it more emotional":
 
@@ -1043,7 +1010,6 @@ if "versions" in st.session_state:
                 + "\n\n"
                 + base_version
             )
-
 
         elif improvement == "Make it more professional":
 
@@ -1060,13 +1026,12 @@ if "versions" in st.session_state:
                 + base_version
             )
 
-
         elif improvement == "Make it more luxurious":
 
             luxury_openings = [
                 f"✨ Elevate your everyday skincare ritual with {product_name}.",
-                f"Experience skincare designed to feel as exceptional as it performs.",
-                f"Discover a more refined approach to everyday skincare."
+                "Experience skincare designed to feel as exceptional as it performs.",
+                "Discover a more refined approach to everyday skincare."
             ]
 
             improved = (
@@ -1075,12 +1040,11 @@ if "versions" in st.session_state:
                 + base_version
             )
 
-
         elif improvement == "Make it more persuasive":
 
             persuasive_openings = [
                 f"Why settle for an ordinary routine when you can discover {product_name}?",
-                f"Give your skincare routine the upgrade it deserves.",
+                "Give your skincare routine the upgrade it deserves.",
                 f"Your next skincare essential could be {product_name}."
             ]
 
@@ -1089,7 +1053,6 @@ if "versions" in st.session_state:
                 + "\n\n"
                 + base_version
             )
-
 
         elif improvement == "Make it shorter":
 
@@ -1101,19 +1064,20 @@ if "versions" in st.session_state:
 
                 if line.strip():
 
-                    useful_lines.append(line.strip())
+                    useful_lines.append(
+                        line.strip()
+                    )
 
             improved = "\n\n".join(
                 useful_lines[:8]
             )
 
-
         elif improvement == "Make it more playful":
 
             playful_openings = [
-                f"✨ Psst... your skincare routine just got more exciting!",
-                f"Glow mode: ON. ✨",
-                f"Good skin days are calling! 📞✨"
+                "✨ Psst... your skincare routine just got more exciting!",
+                "Glow mode: ON. ✨",
+                "Good skin days are calling! 📞✨"
             ]
 
             improved = (
@@ -1122,16 +1086,17 @@ if "versions" in st.session_state:
                 + base_version
             )
 
-
         else:
 
-            new_version_number = random.randint(1, 3)
+            new_version_number = random.randint(
+                1,
+                3
+            )
 
             improved = generate_content(
                 new_version_number,
                 campaign
             )
-
 
         # ----------------------------------------------------
         # DISPLAY REGENERATED CONTENT
@@ -1147,14 +1112,5 @@ if "versions" in st.session_state:
         )
 
         st.success(
-            "Your content has been regenerated successfully!"
-        )
-
-
-# ============================================================
-# FOOTER
-# ============================================================
-
- st.success(
             "Your content has been regenerated successfully!"
         )
