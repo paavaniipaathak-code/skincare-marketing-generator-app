@@ -127,6 +127,26 @@ benefits = st.text_area(
 
 
 # ============================================================
+# CATEGORY
+# ============================================================
+
+category = st.selectbox(
+    "Product Category",
+    [
+        "Face Serum",
+        "Moisturizer",
+        "Cleanser",
+        "Sunscreen",
+        "Face Mask",
+        "Eye Cream",
+        "Body Care",
+        "Lip Care",
+        "Other"
+    ]
+)
+
+
+# ============================================================
 # ADDITIONAL INFORMATION
 # ============================================================
 
@@ -134,7 +154,9 @@ additional_info = st.text_area(
     "💡 Anything else you'd like us to know? (Optional)",
     placeholder=(
         "Example: Vegan, cruelty-free, launching during Diwali, "
-        "perfect for busy college students..."
+        "perfect for busy college students... "
+        "If you selected 'Other' as the product category, "
+        "you can describe your product here."
     )
 )
 
@@ -159,26 +181,6 @@ no_info_values = {
 
 if additional_info.strip().lower() in no_info_values:
     additional_info = ""
-
-
-# ============================================================
-# CATEGORY
-# ============================================================
-
-category = st.selectbox(
-    "Product Category",
-    [
-        "Face Serum",
-        "Moisturizer",
-        "Cleanser",
-        "Sunscreen",
-        "Face Mask",
-        "Eye Cream",
-        "Body Care",
-        "Lip Care",
-        "Other"
-    ]
-)
 
 
 # ============================================================
@@ -388,6 +390,17 @@ def understand_additional_info(text):
 
 
     # --------------------------------------------------------
+    # IF USER SELECTED OTHER
+    # --------------------------------------------------------
+
+    if category == "Other" and text.strip():
+
+        information["general"].append(
+            "User-defined product category/details"
+        )
+
+
+    # --------------------------------------------------------
     # REMOVE DUPLICATES
     # --------------------------------------------------------
 
@@ -429,6 +442,11 @@ def create_campaign_idea():
         context.append(
             "Customer needs/preferences: "
             + ", ".join(info["preferences"])
+        )
+
+    if info["general"]:
+        context.append(
+            "Additional product details provided by user"
         )
 
 
@@ -512,6 +530,40 @@ def create_campaign_idea():
         )
 
 
+    elif campaign_objective == "🛍️ Promotional Sale":
+
+        campaign_name = (
+            f"🛍️ {product_name} – Your Glow, Your Deal"
+        )
+
+        big_idea = (
+            f"Use an attractive promotional message to "
+            f"encourage customers to discover {product_name} "
+            f"and take advantage of the current offer."
+        )
+
+        hook = (
+            "Your skincare upgrade just got even better."
+        )
+
+
+    elif campaign_objective == "💕 Customer Engagement":
+
+        campaign_name = (
+            f"💕 Get to Know Your Glow"
+        )
+
+        big_idea = (
+            f"Create an engaging campaign that encourages "
+            f"customers to connect with {brand_name} and "
+            f"discover how {product_name} fits their routine."
+        )
+
+        hook = (
+            "What's your skin's favourite part of the routine?"
+        )
+
+
     else:
 
         campaign_name = (
@@ -572,6 +624,17 @@ def generate_content(version, campaign):
             "Customer needs: "
             + ", ".join(info["preferences"])
             + ". "
+        )
+
+    # If Other is selected and the user described the product,
+    # use that description in the generated content.
+
+    product_category_text = category.lower()
+
+    if category == "Other" and additional_info.strip():
+
+        product_category_text = (
+            "specialized skincare product described by the user"
         )
 
 
@@ -641,7 +704,7 @@ Dear Customer,
 {opening}
 
 We are excited to introduce {product_name}, a
-{category.lower()} from {brand_name}.
+{product_category_text} from {brand_name}.
 
 Designed especially for {target_audience},
 {product_name} helps provide {benefits}.
@@ -683,7 +746,7 @@ At {brand_name}, we believe skincare should be
 meaningful, accessible and easy to make part of
 everyday life.
 
-Our {category.lower()} is designed especially for
+Our {product_category_text} is designed especially for
 {target_audience} and provides {benefits}.
 
 {extra_text}
@@ -840,6 +903,13 @@ if st.button(
                     + ", ".join(info["preferences"])
                 )
 
+            if category == "Other":
+                st.write(
+                    "📦 **Product category:** "
+                    "Other — using your description as additional "
+                    "product information."
+                )
+
 
         # ----------------------------------------------------
         # THREE VERSIONS
@@ -979,8 +1049,9 @@ if "versions" in st.session_state:
 
             professional_intro = (
                 f"{brand_name} presents {product_name}, "
-                f"a thoughtfully positioned {category.lower()} "
-                f"designed for {target_audience}."
+                f"a thoughtfully positioned "
+                f"{category.lower()} designed for "
+                f"{target_audience}."
             )
 
             improved = (
