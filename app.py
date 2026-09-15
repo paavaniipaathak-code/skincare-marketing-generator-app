@@ -1,7 +1,5 @@
-
 import streamlit as st
 import base64
-import re
 import random
 
 
@@ -299,7 +297,9 @@ def understand_additional_info(text):
         "general": []
     }
 
-    # Product attributes
+    # --------------------------------------------------------
+    # PRODUCT ATTRIBUTES
+    # --------------------------------------------------------
 
     attribute_keywords = {
         "vegan": "vegan",
@@ -320,7 +320,9 @@ def understand_additional_info(text):
             information["attributes"].append(meaning)
 
 
-    # Campaign context
+    # --------------------------------------------------------
+    # CAMPAIGN CONTEXT
+    # --------------------------------------------------------
 
     campaign_keywords = {
         "diwali": "Diwali",
@@ -339,7 +341,9 @@ def understand_additional_info(text):
             information["campaign_context"].append(meaning)
 
 
-    # Audience context
+    # --------------------------------------------------------
+    # AUDIENCE CONTEXT
+    # --------------------------------------------------------
 
     audience_keywords = {
         "college student": "college students",
@@ -361,7 +365,9 @@ def understand_additional_info(text):
             information["audience_context"].append(meaning)
 
 
-    # Preferences / consumer needs
+    # --------------------------------------------------------
+    # CUSTOMER NEEDS / PREFERENCES
+    # --------------------------------------------------------
 
     preference_keywords = {
         "sensitive skin": "sensitive-skin concerns",
@@ -381,7 +387,9 @@ def understand_additional_info(text):
             information["preferences"].append(meaning)
 
 
-    # Remove duplicates
+    # --------------------------------------------------------
+    # REMOVE DUPLICATES
+    # --------------------------------------------------------
 
     for key in information:
         information[key] = list(dict.fromkeys(information[key]))
@@ -424,7 +432,9 @@ def create_campaign_idea():
         )
 
 
-    # Choose campaign concept
+    # --------------------------------------------------------
+    # SELECT CAMPAIGN CONCEPT
+    # --------------------------------------------------------
 
     if "Diwali" in info["campaign_context"]:
 
@@ -436,31 +446,41 @@ def create_campaign_idea():
             f"the excitement of Diwali."
         )
 
-        hook = "This Diwali, let your skin join the celebration. ✨"
+        hook = (
+            "This Diwali, let your skin join the celebration. ✨"
+        )
 
 
     elif "college students" in info["audience_context"]:
 
-        campaign_name = f"🎓 {product_name} – Glow On The Go"
+        campaign_name = (
+            f"🎓 {product_name} – Glow On The Go"
+        )
 
         big_idea = (
             f"Show how {product_name} fits easily into the "
             f"busy lifestyle of college students."
         )
 
-        hook = "Busy schedule? Your skincare routine doesn't have to be."
+        hook = (
+            "Busy schedule? Your skincare routine doesn't have to be."
+        )
 
 
     elif "vegan" in info["attributes"]:
 
-        campaign_name = f"🌱 {product_name} – Beauty With Purpose"
+        campaign_name = (
+            f"🌱 {product_name} – Beauty With Purpose"
+        )
 
         big_idea = (
             f"Highlight the vegan positioning of {product_name} "
             f"while connecting skincare with conscious choices."
         )
 
-        hook = "Good skincare. Thoughtful choices."
+        hook = (
+            "Good skincare. Thoughtful choices."
+        )
 
 
     elif campaign_objective == "🆕 Product Launch":
@@ -469,34 +489,43 @@ def create_campaign_idea():
 
         big_idea = (
             f"Introduce {product_name} as a fresh skincare "
-            f"solution designed specifically for {target_audience}."
+            f"solution designed specifically for "
+            f"{target_audience}."
         )
 
-        hook = f"Your new skincare essential has arrived."
+        hook = (
+            "Your new skincare essential has arrived."
+        )
 
 
     elif campaign_objective == "🎉 Festive Campaign":
 
-        campaign_name = f"✨ Glow Into The Celebration"
+        campaign_name = "✨ Glow Into The Celebration"
 
         big_idea = (
             f"Connect {product_name} with festive self-care "
             f"and feel-good skincare moments."
         )
 
-        hook = "Celebrate every moment. Glow through every one."
+        hook = (
+            "Celebrate every moment. Glow through every one."
+        )
 
 
     else:
 
-        campaign_name = f"💙 The {product_name} Difference"
+        campaign_name = (
+            f"💙 The {product_name} Difference"
+        )
 
         big_idea = (
             f"Focus on why {product_name} deserves a place "
             f"in the customer's everyday skincare routine."
         )
 
-        hook = f"Skincare that fits into your everyday."
+        hook = (
+            "Skincare that fits into your everyday."
+        )
 
 
     return {
@@ -547,12 +576,13 @@ def generate_content(version, campaign):
 
 
     # ========================================================
-    # VERSION STYLE
+    # VERSION OPENINGS
     # ========================================================
 
     if version == 1:
 
         opening = campaign["hook"]
+
 
     elif version == 2:
 
@@ -560,6 +590,7 @@ def generate_content(version, campaign):
             f"What if your skincare routine could make "
             f"every day feel a little better?"
         )
+
 
     else:
 
@@ -570,16 +601,18 @@ def generate_content(version, campaign):
 
 
     # ========================================================
-    # CREATIVITY
+    # CREATIVITY LEVEL
     # ========================================================
 
     if creativity_level == "Simple":
 
         style = "clear, simple and professional"
 
+
     elif creativity_level == "Balanced":
 
         style = "engaging, warm and creative"
+
 
     else:
 
@@ -587,7 +620,7 @@ def generate_content(version, campaign):
 
 
     # ========================================================
-    # EMAIL
+    # MARKETING EMAIL
     # ========================================================
 
     if content_type == "💌 Marketing Email":
@@ -636,7 +669,7 @@ Phone: {contact_phone}
 
 
     # ========================================================
-    # LINKEDIN
+    # LINKEDIN POST
     # ========================================================
 
     elif content_type == "💼 LinkedIn Post":
@@ -656,6 +689,7 @@ Our {category.lower()} is designed especially for
 {extra_text}
 
 Campaign idea:
+
 {campaign["name"]}
 
 {campaign["idea"]}
@@ -671,7 +705,7 @@ connect with today's consumers.
 
 
     # ========================================================
-    # INSTAGRAM
+    # INSTAGRAM CAPTION
     # ========================================================
 
     elif content_type == "📸 Instagram Caption":
@@ -711,8 +745,11 @@ Beautiful results. 🌸
     else:
 
         taglines = [
+
             f"{brand_name} – Better Skin Starts Here.",
+
             f"{product_name} – Your Skin's New Essential.",
+
             f"{brand_name} – Skincare Made to Stand Out."
         ]
 
@@ -741,15 +778,16 @@ if st.button(
             "Please fill in all the required fields marked with *."
         )
 
+
     else:
 
         campaign = create_campaign_idea()
 
         st.session_state["campaign"] = campaign
 
-        # ====================================================
+        # ----------------------------------------------------
         # CAMPAIGN IDEA
-        # ====================================================
+        # ----------------------------------------------------
 
         st.subheader("💡 AI-Inspired Campaign Idea")
 
@@ -767,9 +805,10 @@ if st.button(
             + campaign["hook"]
         )
 
-        # ====================================================
+
+        # ----------------------------------------------------
         # SMART UNDERSTANDING
-        # ====================================================
+        # ----------------------------------------------------
 
         info = understand_additional_info(additional_info)
 
@@ -802,9 +841,9 @@ if st.button(
                 )
 
 
-        # ====================================================
+        # ----------------------------------------------------
         # THREE VERSIONS
-        # ====================================================
+        # ----------------------------------------------------
 
         st.subheader("✨ Choose Your Version")
 
@@ -831,7 +870,7 @@ if st.button(
 
 
 # ============================================================
-# DISPLAY VERSIONS
+# DISPLAY GENERATED VERSIONS
 # ============================================================
 
 if "versions" in st.session_state:
@@ -893,12 +932,18 @@ if "versions" in st.session_state:
             create_campaign_idea()
         )
 
-        # Generate a new version using the selected instruction
+        # ----------------------------------------------------
+        # SELECT ONE EXISTING VERSION
+        # ----------------------------------------------------
 
         base_version = random.choice(
             st.session_state["versions"]
         )
 
+
+        # ----------------------------------------------------
+        # IMPROVEMENT OPTIONS
+        # ----------------------------------------------------
 
         if improvement == "Make it more catchy":
 
@@ -908,5 +953,140 @@ if "versions" in st.session_state:
                 f"Your next skincare obsession has arrived. ✨"
             ]
 
-            improved = base_ver_
-```
+            improved = (
+                random.choice(catchy_openings)
+                + "\n\n"
+                + base_version
+            )
+
+
+        elif improvement == "Make it more emotional":
+
+            emotional_openings = [
+                "Because your skin deserves a little extra love. 🤍",
+                "Take a moment to care for the skin you live in.",
+                "Self-care starts with giving yourself a little attention. ✨"
+            ]
+
+            improved = (
+                random.choice(emotional_openings)
+                + "\n\n"
+                + base_version
+            )
+
+
+        elif improvement == "Make it more professional":
+
+            professional_intro = (
+                f"{brand_name} presents {product_name}, "
+                f"a thoughtfully positioned {category.lower()} "
+                f"designed for {target_audience}."
+            )
+
+            improved = (
+                professional_intro
+                + "\n\n"
+                + base_version
+            )
+
+
+        elif improvement == "Make it more luxurious":
+
+            luxury_openings = [
+                f"✨ Elevate your everyday skincare ritual with {product_name}.",
+                f"Experience skincare designed to feel as exceptional as it performs.",
+                f"Discover a more refined approach to everyday skincare."
+            ]
+
+            improved = (
+                random.choice(luxury_openings)
+                + "\n\n"
+                + base_version
+            )
+
+
+        elif improvement == "Make it more persuasive":
+
+            persuasive_openings = [
+                f"Why settle for an ordinary routine when you can discover {product_name}?",
+                f"Give your skincare routine the upgrade it deserves.",
+                f"Your next skincare essential could be {product_name}."
+            ]
+
+            improved = (
+                random.choice(persuasive_openings)
+                + "\n\n"
+                + base_version
+            )
+
+
+        elif improvement == "Make it shorter":
+
+            lines = base_version.splitlines()
+
+            useful_lines = []
+
+            for line in lines:
+
+                if line.strip():
+
+                    useful_lines.append(line.strip())
+
+            improved = "\n\n".join(
+                useful_lines[:8]
+            )
+
+
+        elif improvement == "Make it more playful":
+
+            playful_openings = [
+                f"✨ Psst... your skincare routine just got more exciting!",
+                f"Glow mode: ON. ✨",
+                f"Good skin days are calling! 📞✨"
+            ]
+
+            improved = (
+                random.choice(playful_openings)
+                + "\n\n"
+                + base_version
+            )
+
+
+        else:
+
+            new_version_number = random.randint(1, 3)
+
+            improved = generate_content(
+                new_version_number,
+                campaign
+            )
+
+
+        # ----------------------------------------------------
+        # DISPLAY REGENERATED CONTENT
+        # ----------------------------------------------------
+
+        st.subheader("✨ Regenerated Content")
+
+        st.text_area(
+            "Improved Version",
+            improved,
+            height=450,
+            key="regenerated_content"
+        )
+
+        st.success(
+            "Your content has been regenerated successfully!"
+        )
+
+
+# ============================================================
+# FOOTER
+# ============================================================
+
+st.divider()
+
+st.caption(
+    "🫧 Skincare Marketing Content Generator | "
+    "Intelligent rule-based content generation system"
+)
